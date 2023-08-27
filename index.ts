@@ -10,16 +10,22 @@ capturados usando a biblioteca prompt-sync
  */
 import PromptSync from "prompt-sync"
 
-const prompt = PromptSync()
-const nomeAluno: string = prompt("Digite o nome do aluno: ")
-const nota01: number = parseFloat(prompt("De 0 a 10, digite o valor da 1ª nota: "));
-const nota02: number = parseFloat(prompt("De 0 a 10, digite o valor da 2ª nota: "));
-const nota03: number = parseFloat(prompt("De 0 a 10, digite o valor da 3ª nota: "));
-const nota04: number = parseFloat(prompt("De 0 a 10, digite o valor da 4ª nota: "));
+const prompt = PromptSync();
+const nomeAluno: string = prompt("Digite o nome do aluno: ");
+let notasArray: number[] = [];
+
+for(let i = 0;i<4;i++) {
+    let nota: number = parseFloat(prompt(`De 0 a 10, digite o valor da ${i + 1}ª nota: `));
+    notasArray.push(nota);
+}
 
 
-function calculaMedia(nota1: number,nota2: number,nota3: number,nota4: number,): number {
-    return (nota1+nota2+nota3+nota4)/4
+function calculaMedia(notasCalculo: number[]): number {
+    let soma: number  = 0;
+    for(let i = 0;i<notasCalculo.length;i++) {
+        soma += notasCalculo[i];
+    } 
+    return soma/notasCalculo.length;
 }
 
 interface Aluno {
@@ -30,8 +36,8 @@ interface Aluno {
 
 const aluno: Aluno = {
     nome: nomeAluno,
-    notas: [nota01, nota02, nota03, nota04],
-    mediaFinal: calculaMedia(nota01, nota02, nota03, nota04)
+    notas: notasArray,
+    mediaFinal: calculaMedia(notasArray)
 }
 
-console.log(aluno)
+console.log(aluno);

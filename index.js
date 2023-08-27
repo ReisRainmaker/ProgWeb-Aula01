@@ -16,16 +16,21 @@ capturados usando a biblioteca prompt-sync
 const prompt_sync_1 = __importDefault(require("prompt-sync"));
 const prompt = (0, prompt_sync_1.default)();
 const nomeAluno = prompt("Digite o nome do aluno: ");
-const nota01 = parseFloat(prompt("Digite o valor da 1ª nota: "));
-const nota02 = parseFloat(prompt("Digite o valor da 2ª nota: "));
-const nota03 = parseFloat(prompt("Digite o valor da 3ª nota: "));
-const nota04 = parseFloat(prompt("Digite o valor da 4ª nota: "));
-function calculaMedia(nota1, nota2, nota3, nota4) {
-    return (nota1 + nota2 + nota3 + nota4) / 4;
+let notasArray = [];
+for (let i = 0; i < 4; i++) {
+    let nota = parseFloat(prompt(`De 0 a 10, digite o valor da ${i + 1}ª nota: `));
+    notasArray.push(nota);
+}
+function calculaMedia(notasCalculo) {
+    let soma = 0;
+    for (let i = 0; i < notasCalculo.length; i++) {
+        soma += notasCalculo[i];
+    }
+    return soma / notasCalculo.length;
 }
 const aluno = {
     nome: nomeAluno,
-    notas: [nota01, nota02, nota03, nota04],
-    mediaFinal: calculaMedia(nota01, nota02, nota03, nota04)
+    notas: notasArray,
+    mediaFinal: calculaMedia(notasArray)
 };
 console.log(aluno);
